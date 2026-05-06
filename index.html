@@ -4,99 +4,92 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AirMart – Tržiště čerstvého vzduchu</title>
-
-  <!-- Google Fonts: Slab serif pro nadpis + čistý bezpatkový pro tělo -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
-    rel="stylesheet"
-  />
-
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
   <style>
-    /* ============================================================
-       CSS PROMĚNNÉ – barevná paleta a typografie
-       ============================================================ */
-    :root {
-      --sky:      #d6eeff;
-      --sky-mid:  #a8d8f0;
-      --blue:     #1a6fa8;
-      --blue-dark:#0e4d7a;
-      --accent:   #ff6b35;
-      --white:    #ffffff;
-      --gray-100: #f4f8fb;
-      --gray-200: #e2edf5;
-      --gray-500: #7a9ab0;
-      --gray-700: #3a5568;
-      --text:     #1b2d3e;
-      --radius:   16px;
-      --shadow:   0 4px 24px rgba(26,111,168,.12);
-      --shadow-hover: 0 12px 40px rgba(26,111,168,.22);
-    }
-
-    /* ============================================================
-       RESET & ZÁKLADNÍ STYLY
-       ============================================================ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    :root {
+      --sky:        #d6eeff;
+      --sky-mid:    #a8d8f0;
+      --sky-light:  #edf7ff;
+      --blue:       #1a6fa8;
+      --blue-dark:  #0e4d7a;
+      --accent:     #ff6b35;
+      --white:      #ffffff;
+      --gray-100:   #f4f8fb;
+      --gray-200:   #e2edf5;
+      --gray-500:   #7a9ab0;
+      --gray-700:   #3a5568;
+      --text:       #1b2d3e;
+      --radius:     18px;
+      --radius-sm:  10px;
+      --shadow:     0 4px 24px rgba(26,111,168,.10);
+      --shadow-lg:  0 16px 48px rgba(26,111,168,.20);
+    }
+
+    html, body { height: 100%; }
+
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'DM Sans', -apple-system, sans-serif;
       background: var(--sky);
       color: var(--text);
       min-height: 100vh;
-      /* Jemný šum jako textura vzduchu */
       background-image:
-        radial-gradient(ellipse 80% 60% at 20% 10%, #c8e9ff 0%, transparent 60%),
-        radial-gradient(ellipse 60% 80% at 80% 90%, #b3d9f5 0%, transparent 60%);
+        radial-gradient(ellipse 80% 60% at 15% 5%,  #c4e5ff 0%, transparent 55%),
+        radial-gradient(ellipse 55% 75% at 85% 95%, #b0d9f4 0%, transparent 55%),
+        radial-gradient(ellipse 40% 50% at 60% 40%, #ddf0ff 0%, transparent 50%);
     }
 
-    /* ============================================================
-       ZÁHLAVÍ (HERO)
-       ============================================================ */
-    header {
-      background: var(--blue-dark);
+    /* ── HEADER ────────────────────────────────── */
+    .am-header {
+      background: linear-gradient(135deg, var(--blue-dark) 0%, #1a5a8c 100%);
       color: var(--white);
-      padding: 2.5rem 1.5rem 2rem;
+      padding: 3rem 2rem 2.5rem;
       text-align: center;
       position: relative;
       overflow: hidden;
     }
-
-    /* Dekorativní kruhy – bubliny vzduchu */
-    header::before, header::after {
+    .am-header::before,
+    .am-header::after {
       content: '';
       position: absolute;
       border-radius: 50%;
-      opacity: .07;
-      background: var(--white);
+      background: rgba(255,255,255,.05);
     }
-    header::before { width: 300px; height: 300px; top: -100px; left: -80px; }
-    header::after  { width: 200px; height: 200px; bottom: -60px; right: -40px; }
+    .am-header::before { width: 360px; height: 360px; top: -130px; left: -100px; }
+    .am-header::after  { width: 240px; height: 240px; bottom: -80px; right: -60px; }
 
-    header .logo {
+    .am-header .logo {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(2rem, 6vw, 3.2rem);
+      font-size: clamp(2.2rem, 6vw, 3.5rem);
       font-weight: 900;
-      letter-spacing: -1px;
+      letter-spacing: -1.5px;
       line-height: 1;
+      position: relative;
+      z-index: 1;
     }
-
-    header .logo span { color: var(--sky-mid); }
-
-    header .tagline {
-      margin-top: .6rem;
+    .am-header .logo span { color: var(--sky-mid); }
+    .am-header .tagline {
+      margin-top: .7rem;
       font-size: .95rem;
       font-weight: 300;
-      opacity: .75;
+      opacity: .7;
       font-style: italic;
+      position: relative;
+      z-index: 1;
     }
 
-    /* ============================================================
-       NAVIGACE / PÁSKA AKCÍ
-       ============================================================ */
-    .action-bar {
-      background: var(--white);
-      border-bottom: 2px solid var(--gray-200);
-      padding: .75rem 1.5rem;
+    /* ── ACTION BAR ─────────────────────────────── */
+    .am-action-bar {
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1.5px solid var(--gray-200);
+      padding: .85rem 2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -104,105 +97,120 @@
       flex-wrap: wrap;
       position: sticky;
       top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 12px rgba(26,111,168,.08);
+      z-index: 200;
+      box-shadow: 0 2px 16px rgba(26,111,168,.07);
     }
-
-    .action-bar .count {
-      font-size: .85rem;
+    .am-action-bar .count {
+      font-size: .875rem;
       color: var(--gray-500);
       font-weight: 300;
     }
-    .action-bar .count strong { color: var(--blue); font-weight: 500; }
+    .am-action-bar .count strong { color: var(--blue); font-weight: 600; }
 
-    /* Tlačítko pro otevření formuláře */
+    /* ── BUTTONS ────────────────────────────────── */
+    .btn {
+      border: none;
+      border-radius: 50px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: .4rem;
+      transition: transform .15s, box-shadow .15s, background .15s, color .15s, border-color .15s;
+    }
+    .btn:active { transform: scale(.96) !important; }
+
     .btn-add {
       background: var(--accent);
       color: var(--white);
-      border: none;
-      border-radius: 50px;
-      padding: .6rem 1.4rem;
-      font-family: 'DM Sans', sans-serif;
+      padding: .65rem 1.5rem;
       font-size: .9rem;
-      font-weight: 500;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: .4rem;
-      transition: transform .15s, box-shadow .15s, background .15s;
+      box-shadow: 0 4px 14px rgba(255,107,53,.25);
     }
     .btn-add:hover {
       background: #e0541f;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(255,107,53,.35);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(255,107,53,.35);
     }
-    .btn-add:active { transform: scale(.97); }
 
-    /* ============================================================
-       HLAVNÍ OBSAH
-       ============================================================ */
-    main {
+    .btn-primary {
+      background: var(--blue);
+      color: var(--white);
+      padding: .65rem 1.6rem;
+      font-size: .95rem;
+    }
+    .btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--gray-500);
+      border: 1.5px solid var(--gray-200);
+      padding: .65rem 1.2rem;
+      font-size: .95rem;
+    }
+    .btn-ghost:hover { border-color: var(--gray-500); color: var(--text); }
+
+    .btn-buy {
+      background: var(--blue);
+      color: var(--white);
+      padding: .5rem 1.1rem;
+      font-size: .85rem;
+      box-shadow: 0 2px 8px rgba(26,111,168,.2);
+    }
+    .btn-buy:hover { background: var(--blue-dark); transform: scale(1.05); }
+
+    /* ── MAIN ───────────────────────────────────── */
+    .am-main {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 2rem 1.5rem 4rem;
+      padding: 2.5rem 1.5rem 5rem;
     }
 
-    /* ============================================================
-       SEKCE FORMULÁŘE
-       ============================================================ */
-    .form-section {
+    /* ── FORM PANEL ─────────────────────────────── */
+    .form-panel {
       background: var(--white);
       border-radius: var(--radius);
-      padding: 2rem;
+      padding: 2.25rem 2rem;
       margin-bottom: 2.5rem;
-      box-shadow: var(--shadow);
-      /* Výchozí stav: skrytý, animace při zobrazení */
-      display: none;
+      box-shadow: var(--shadow-lg);
       animation: slideDown .3s ease;
     }
-    .form-section.open { display: block; }
-
     @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-12px); }
+      from { opacity: 0; transform: translateY(-14px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    .form-section h2 {
+    .form-panel h2 {
       font-family: 'Playfair Display', serif;
-      font-size: 1.4rem;
+      font-size: 1.45rem;
       color: var(--blue-dark);
       margin-bottom: 1.5rem;
     }
 
-    /* Mřížka formuláře */
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1rem;
+      gap: 1.1rem;
     }
     @media (max-width: 580px) { .form-grid { grid-template-columns: 1fr; } }
 
-    /* Pole formuláře – label + input/textarea */
-    .field {
-      display: flex;
-      flex-direction: column;
-      gap: .35rem;
-    }
-    .field.full { grid-column: 1 / -1; } /* přes celou šířku */
+    .field { display: flex; flex-direction: column; gap: .35rem; }
+    .field.full { grid-column: 1 / -1; }
 
     .field label {
-      font-size: .8rem;
-      font-weight: 500;
+      font-size: .78rem;
+      font-weight: 600;
       color: var(--gray-700);
       text-transform: uppercase;
-      letter-spacing: .05em;
+      letter-spacing: .07em;
     }
 
     .field input,
     .field textarea {
       border: 1.5px solid var(--gray-200);
-      border-radius: 10px;
-      padding: .65rem .9rem;
+      border-radius: var(--radius-sm);
+      padding: .7rem 1rem;
       font-family: 'DM Sans', sans-serif;
       font-size: .95rem;
       color: var(--text);
@@ -217,71 +225,41 @@
       background: var(--white);
       box-shadow: 0 0 0 3px rgba(26,111,168,.12);
     }
-
-    /* Chybové hlášení u polí */
-    .field .error-msg {
-      font-size: .78rem;
-      color: #d9534f;
-      display: none;
-    }
-    .field.invalid .error-msg { display: block; }
     .field.invalid input,
     .field.invalid textarea { border-color: #d9534f; }
 
-    /* Řada tlačítek formuláře */
+    .field .error-msg {
+      font-size: .78rem;
+      color: #d9534f;
+      font-weight: 500;
+    }
+
     .form-actions {
       display: flex;
       gap: .75rem;
-      margin-top: 1.25rem;
+      margin-top: 1.5rem;
       justify-content: flex-end;
     }
 
-    .btn-submit {
-      background: var(--blue);
-      color: var(--white);
-      border: none;
-      border-radius: 50px;
-      padding: .65rem 1.6rem;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .95rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background .2s, transform .15s;
-    }
-    .btn-submit:hover { background: var(--blue-dark); transform: translateY(-1px); }
-
-    .btn-cancel {
-      background: transparent;
-      color: var(--gray-500);
-      border: 1.5px solid var(--gray-200);
-      border-radius: 50px;
-      padding: .65rem 1.2rem;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .95rem;
-      cursor: pointer;
-      transition: border-color .2s, color .2s;
-    }
-    .btn-cancel:hover { border-color: var(--gray-500); color: var(--text); }
-
-    /* ============================================================
-       MŘÍŽKA PRODUKTŮ
-       ============================================================ */
-    .products-heading {
+    /* ── SECTION HEADING ────────────────────────── */
+    .section-heading {
       font-family: 'Playfair Display', serif;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       color: var(--blue-dark);
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
     }
 
+    /* ── PRODUCT GRID ───────────────────────────── */
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.75rem;
     }
 
-    /* ============================================================
-       KARTA PRODUKTU
-       ============================================================ */
+    /* ── PRODUCT CARD ───────────────────────────── */
     .card {
       background: var(--white);
       border-radius: var(--radius);
@@ -292,68 +270,63 @@
       transition: transform .25s, box-shadow .25s;
       animation: cardIn .4s ease both;
     }
-
     @keyframes cardIn {
-      from { opacity: 0; transform: translateY(20px) scale(.97); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
+      from { opacity: 0; transform: translateY(22px) scale(.97); }
+      to   { opacity: 1; transform: translateY(0)   scale(1); }
     }
-
     .card:hover {
-      transform: translateY(-6px);
-      box-shadow: var(--shadow-hover);
+      transform: translateY(-7px);
+      box-shadow: var(--shadow-lg);
     }
 
-    /* Obrázek / placeholder produktu */
     .card-img {
-      height: 180px;
-      background: linear-gradient(135deg, var(--sky) 0%, var(--sky-mid) 100%);
+      height: 190px;
+      background: linear-gradient(135deg, var(--sky-light) 0%, var(--sky-mid) 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 4rem;
+      font-size: 4.5rem;
       position: relative;
       overflow: hidden;
     }
-
-    /* Dekorativní bublinky na obrázku */
     .card-img::after {
       content: '';
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 20% 80%, rgba(255,255,255,.5) 8px, transparent 8px),
-        radial-gradient(circle at 75% 25%, rgba(255,255,255,.4) 5px, transparent 5px),
-        radial-gradient(circle at 60% 70%, rgba(255,255,255,.35) 4px, transparent 4px);
+        radial-gradient(circle at 18% 82%, rgba(255,255,255,.55) 9px, transparent 9px),
+        radial-gradient(circle at 72% 22%, rgba(255,255,255,.45) 6px, transparent 6px),
+        radial-gradient(circle at 55% 68%, rgba(255,255,255,.4)  5px, transparent 5px),
+        radial-gradient(circle at 88% 55%, rgba(255,255,255,.35) 4px, transparent 4px);
     }
 
-    /* Štítek „NOVÝ" na čerstvě přidaném produktu */
-    .card-img .badge-new {
+    .badge-new {
       position: absolute;
-      top: 12px; right: 12px;
+      top: 14px; right: 14px;
       background: var(--accent);
       color: var(--white);
-      font-size: .7rem;
-      font-weight: 500;
-      padding: .2rem .55rem;
+      font-size: .68rem;
+      font-weight: 600;
+      padding: .22rem .6rem;
       border-radius: 50px;
       text-transform: uppercase;
-      letter-spacing: .06em;
+      letter-spacing: .07em;
       z-index: 1;
+      box-shadow: 0 3px 10px rgba(255,107,53,.4);
     }
 
-    /* Tělo karty */
     .card-body {
-      padding: 1.2rem 1.25rem;
+      padding: 1.35rem 1.4rem;
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: .4rem;
+      gap: .45rem;
     }
 
     .card-name {
       font-family: 'Playfair Display', serif;
       font-size: 1.1rem;
-      line-height: 1.25;
+      line-height: 1.3;
       color: var(--blue-dark);
     }
 
@@ -361,99 +334,72 @@
       font-size: .875rem;
       color: var(--gray-700);
       font-weight: 300;
-      line-height: 1.5;
+      line-height: 1.55;
       flex: 1;
     }
 
-    /* Spodní část karty: cena + tlačítko */
     .card-footer {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: .9rem 1.25rem 1.1rem;
-      border-top: 1px solid var(--gray-200);
+      padding: 1rem 1.4rem 1.2rem;
+      border-top: 1.5px solid var(--gray-200);
       background: var(--gray-100);
     }
 
     .card-price {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: 700;
       color: var(--blue);
-      letter-spacing: -.02em;
+      letter-spacing: -.03em;
     }
     .card-price small {
       font-size: .7rem;
       font-weight: 400;
       color: var(--gray-500);
       display: block;
-      margin-top: -2px;
+      margin-top: -1px;
     }
 
-    /* Tlačítko Koupit */
-    .btn-buy {
-      background: var(--blue);
-      color: var(--white);
-      border: none;
-      border-radius: 50px;
-      padding: .5rem 1.1rem;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .85rem;
-      font-weight: 500;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: .35rem;
-      transition: background .2s, transform .15s;
-    }
-    .btn-buy:hover { background: var(--blue-dark); transform: scale(1.04); }
-    .btn-buy:active { transform: scale(.97); }
-
-    /* ============================================================
-       PRÁZDNÝ STAV
-       ============================================================ */
+    /* ── EMPTY STATE ────────────────────────────── */
     .empty-state {
       text-align: center;
-      padding: 4rem 1rem;
+      padding: 5rem 1rem;
       grid-column: 1 / -1;
     }
-    .empty-state .emoji { font-size: 4rem; margin-bottom: 1rem; }
+    .empty-state .icon { font-size: 4rem; margin-bottom: 1rem; }
     .empty-state p {
       color: var(--gray-500);
       font-weight: 300;
       font-style: italic;
+      font-size: 1.05rem;
     }
 
-    /* ============================================================
-       POTVRZOVACÍ BANNER (alternativa k alert)
-       ============================================================ */
+    /* ── TOAST ──────────────────────────────────── */
     .toast {
       position: fixed;
       bottom: 2rem;
       left: 50%;
-      transform: translateX(-50%) translateY(120%);
+      transform: translateX(-50%) translateY(140%);
       background: var(--blue-dark);
       color: var(--white);
-      padding: .85rem 1.6rem;
+      padding: .9rem 1.8rem;
       border-radius: 50px;
       font-size: .9rem;
       font-weight: 500;
-      box-shadow: 0 8px 30px rgba(14,77,122,.35);
+      box-shadow: 0 10px 36px rgba(14,77,122,.35);
       z-index: 999;
       white-space: nowrap;
       transition: transform .35s cubic-bezier(.34,1.56,.64,1);
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
 
-    /* ============================================================
-       MODÁLNÍ OKNO – zadání hesla
-       ============================================================ */
-
-    /* Tmavé překrytí celé stránky */
+    /* ── MODAL ──────────────────────────────────── */
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(14, 37, 56, 0.55);
-      backdrop-filter: blur(4px);
+      background: rgba(10,30,50,.5);
+      backdrop-filter: blur(5px);
       z-index: 500;
       display: flex;
       align-items: center;
@@ -463,52 +409,41 @@
       pointer-events: none;
       transition: opacity .25s;
     }
-    .modal-overlay.open {
-      opacity: 1;
-      pointer-events: all;
-    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
 
-    /* Bílý box uprostřed */
     .modal-box {
       background: var(--white);
       border-radius: var(--radius);
-      padding: 2rem 2rem 1.75rem;
+      padding: 2.25rem 2rem 2rem;
       width: 100%;
-      max-width: 360px;
-      box-shadow: 0 20px 60px rgba(14,77,122,.3);
-      transform: scale(.92) translateY(16px);
-      transition: transform .3s cubic-bezier(.34,1.56,.64,1);
+      max-width: 380px;
+      box-shadow: 0 24px 72px rgba(14,77,122,.28);
+      transform: scale(.9) translateY(20px);
+      transition: transform .32s cubic-bezier(.34,1.56,.64,1);
       text-align: center;
     }
-    .modal-overlay.open .modal-box {
-      transform: scale(1) translateY(0);
-    }
+    .modal-overlay.open .modal-box { transform: scale(1) translateY(0); }
 
-    .modal-icon { font-size: 2.5rem; margin-bottom: .5rem; }
-
+    .modal-icon { font-size: 2.8rem; margin-bottom: .6rem; }
     .modal-box h3 {
       font-family: 'Playfair Display', serif;
-      font-size: 1.3rem;
+      font-size: 1.35rem;
       color: var(--blue-dark);
-      margin-bottom: .35rem;
+      margin-bottom: .4rem;
     }
     .modal-box p {
-      font-size: .85rem;
+      font-size: .87rem;
       color: var(--gray-500);
       font-weight: 300;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.4rem;
     }
 
-    /* Pole pro heslo */
-    .modal-pw-wrap {
-      position: relative;
-      margin-bottom: .5rem;
-    }
-    .modal-pw-wrap input {
+    .pw-wrap { position: relative; margin-bottom: .5rem; }
+    .pw-wrap input {
       width: 100%;
       border: 1.5px solid var(--gray-200);
-      border-radius: 10px;
-      padding: .7rem 2.8rem .7rem 1rem;
+      border-radius: var(--radius-sm);
+      padding: .75rem 3rem .75rem 1.1rem;
       font-family: 'DM Sans', sans-serif;
       font-size: 1rem;
       text-align: center;
@@ -518,37 +453,39 @@
       outline: none;
       transition: border-color .2s, box-shadow .2s, background .2s;
     }
-    .modal-pw-wrap input:focus {
+    .pw-wrap input:focus {
       border-color: var(--blue);
       background: var(--white);
       box-shadow: 0 0 0 3px rgba(26,111,168,.12);
     }
+    .pw-wrap input.invalid { border-color: #d9534f; }
 
-    /* Tlačítko zobrazit/skrýt heslo */
-    .modal-pw-wrap .eye-btn {
+    .eye-btn {
       position: absolute;
-      right: .7rem;
+      right: .75rem;
       top: 50%;
       transform: translateY(-50%);
       background: none;
       border: none;
       cursor: pointer;
       font-size: 1.1rem;
-      line-height: 1;
       color: var(--gray-500);
       padding: .2rem;
+      line-height: 1;
     }
 
-    /* Chybová zpráva pod inputem */
     .modal-error {
       font-size: .8rem;
       color: #d9534f;
-      min-height: 1.1rem;
-      margin-bottom: .85rem;
+      min-height: 1.2rem;
+      margin-bottom: .9rem;
       font-weight: 500;
     }
 
-    /* Třes při špatném heslu */
+    .modal-actions { display: flex; gap: .65rem; }
+    .modal-actions .btn-primary { flex: 1; }
+    .modal-actions .btn-ghost   { flex: 0 0 auto; }
+
     @keyframes shake {
       0%,100% { transform: translateX(0); }
       20%      { transform: translateX(-8px); }
@@ -556,21 +493,12 @@
       60%      { transform: translateX(-5px); }
       80%      { transform: translateX(5px); }
     }
-    .modal-pw-wrap.shake input { animation: shake .4s ease; border-color: #d9534f; }
+    .pw-wrap.shake input { animation: shake .4s ease; border-color: #d9534f; }
 
-    .modal-actions {
-      display: flex;
-      gap: .6rem;
-    }
-    .modal-actions .btn-submit { flex: 1; }
-    .modal-actions .btn-cancel { flex: 0 0 auto; }
-
-    /* ============================================================
-       PATIČKA
-       ============================================================ */
-    footer {
+    /* ── FOOTER ─────────────────────────────────── */
+    .am-footer {
       text-align: center;
-      padding: 1.5rem;
+      padding: 1.75rem;
       font-size: .8rem;
       color: var(--gray-500);
       font-style: italic;
@@ -578,438 +506,32 @@
   </style>
 </head>
 <body>
+  <div id="root"></div>
 
-  <!-- ============================================================
-       ZÁHLAVÍ
-       ============================================================ -->
-  <header>
-    <div class="logo">Air<span>Mart</span></div>
-    <div class="tagline">Prémiové tržiště čerstvého vzduchu · Dýcháme za vás</div>
-  </header>
+  <script type="text/babel" data-presets="react">
+    const { useState, useEffect, useRef, useCallback } = React;
 
-  <!-- ============================================================
-       LIŠTA AKCÍ (lepkavá na vrcholu)
-       ============================================================ -->
-  <div class="action-bar">
-    <div class="count">
-      Nabídka: <strong id="product-count">0</strong> produktů
-    </div>
-    <!-- Tlačítko otevírá/zavírá formulář -->
-    <button class="btn-add" id="toggle-form-btn" onclick="toggleForm()">
-      ＋ Přidat produkt
-    </button>
-  </div>
+    const STORAGE_KEY    = 'airmart_products';
+    const CORRECT_PW     = 'jejux';
 
-  <!-- ============================================================
-       HLAVNÍ OBSAH
-       ============================================================ -->
-  <main>
+    const DEFAULT_PRODUCTS = [
+      { id: 1, name: 'Čerstvý vzduch v pytlíku – Originál',  desc: 'Náš bestseller. Vzduch pečlivě nasbíraný v českých horách, balený za úsvitu. Bez konzervantů, bez přidaného kyslíku.', price: 49,  isNew: false },
+      { id: 2, name: 'Alpský vzduch Premium',                desc: 'Luxusní směs ze švýcarských Alp ve výšce 3 000 m n. m. Krystalicky čistý, s nádechem sněhu a svobody.',                price: 199, isNew: false },
+      { id: 3, name: 'Mořský vánek – edice léto',            desc: 'Jemně osolený vzduch z pobřeží Jadranského moře. Ideální pro domácí saunování nebo meditaci.',                           price: 89,  isNew: false },
+    ];
 
-    <!-- FORMULÁŘ PRO PŘIDÁNÍ PRODUKTU (výchozí: skrytý) -->
-    <section class="form-section" id="add-form-section">
-      <h2>📦 Nový produkt</h2>
-      <div class="form-grid">
-
-        <!-- Název produktu -->
-        <div class="field full" id="field-name">
-          <label for="prod-name">Název produktu</label>
-          <input
-            type="text"
-            id="prod-name"
-            placeholder="např. Alpský vzduch de luxe"
-            maxlength="80"
-          />
-          <span class="error-msg">Vyplňte prosím název.</span>
-        </div>
-
-        <!-- Popis produktu -->
-        <div class="field full" id="field-desc">
-          <label for="prod-desc">Popis</label>
-          <textarea
-            id="prod-desc"
-            rows="3"
-            placeholder="Co zákazník dostane? Odkud vzduch pochází?"
-          ></textarea>
-          <span class="error-msg">Vyplňte prosím popis.</span>
-        </div>
-
-        <!-- Cena -->
-        <div class="field" id="field-price">
-          <label for="prod-price">Cena (Kč)</label>
-          <input
-            type="number"
-            id="prod-price"
-            placeholder="49"
-            min="1"
-            step="0.01"
-          />
-          <span class="error-msg">Zadejte kladnou cenu.</span>
-        </div>
-
-      </div>
-
-      <!-- Tlačítka formuláře -->
-      <div class="form-actions">
-        <button class="btn-cancel" onclick="toggleForm()">Zrušit</button>
-        <button class="btn-submit" onclick="submitProduct()">Přidat produkt →</button>
-      </div>
-    </section>
-
-    <!-- NADPIS SEKCE PRODUKTŮ -->
-    <h2 class="products-heading">🌬️ Aktuální nabídka</h2>
-
-    <!-- MŘÍŽKA PRODUKTŮ – produkty se vkládají sem pomocí JS -->
-    <div class="products-grid" id="products-grid"></div>
-
-  </main>
-
-  <!-- PATIČKA -->
-  <footer>© 2025 AirMart s.r.o. · Vzduch je náš byznys</footer>
-
-  <!-- TOAST NOTIFIKACE (zobrazí se po kliknutí na Koupit) -->
-  <div class="toast" id="toast"></div>
-
-  <!-- MODÁLNÍ OKNO PRO ZADÁNÍ HESLA -->
-  <div class="modal-overlay" id="pw-modal" onclick="handleOverlayClick(event)">
-    <div class="modal-box">
-      <div class="modal-icon">🔐</div>
-      <h3>Chráněná sekce</h3>
-      <p>Pro přidání produktu zadejte heslo správce.</p>
-      <div class="modal-pw-wrap" id="pw-wrap">
-        <input
-          type="password"
-          id="pw-input"
-          placeholder="Heslo…"
-          autocomplete="off"
-          onkeydown="if(event.key==='Enter') checkPassword()"
-        />
-        <button class="eye-btn" onclick="togglePwVisibility()" title="Zobrazit/skrýt heslo">👁</button>
-      </div>
-      <div class="modal-error" id="pw-error"></div>
-      <div class="modal-actions">
-        <button class="btn-cancel" onclick="closeModal()">Zrušit</button>
-        <button class="btn-submit" onclick="checkPassword()">Potvrdit →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============================================================
-       JAVASCRIPT
-       ============================================================ -->
-  <script>
-    /* ============================================================
-       DATOVÁ VRSTVA – ukládání produktů
-       ============================================================ */
-
-    // Klíč pro localStorage
-    const STORAGE_KEY = 'airmart_products';
-
-    // Načtení produktů z localStorage (nebo výchozí vzorové produkty)
     function loadProducts() {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) {
-        try { return JSON.parse(raw); } catch { /* poškozená data ignorujeme */ }
-      }
-      // Výchozí vzorové produkty při prvním spuštění
-      return [
-        {
-          id: Date.now() - 3000,
-          name: 'Čerstvý vzduch v pytlíku – Originál',
-          desc: 'Náš bestseller. Vzduch pečlivě nasbíraný v českých horách, balený za úsvitu. Bez konzervantů, bez přidaného kyslíku.',
-          price: 49,
-          isNew: false
-        },
-        {
-          id: Date.now() - 2000,
-          name: 'Alpský vzduch Premium',
-          desc: 'Luxusní směs ze švýcarských Alp ve výšce 3 000 m n. m. Krystalicky čistý, s nádechem sněhu a svobody.',
-          price: 199,
-          isNew: false
-        },
-        {
-          id: Date.now() - 1000,
-          name: 'Mořský vánek – edice léto',
-          desc: 'Jemně osolený vzduch z pobřeží Jadranského moře. Ideální pro domácí saunování nebo meditaci.',
-          price: 89,
-          isNew: false
-        }
-      ];
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) return JSON.parse(raw);
+      } catch {}
+      return DEFAULT_PRODUCTS;
     }
 
-    // Uložení produktů do localStorage
     function saveProducts(products) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
     }
 
-    // Pole produktů (živý stav aplikace)
-    let products = loadProducts();
-
-    /* ============================================================
-       VYKRESLENÍ – tvorba HTML karet
-       ============================================================ */
-
-    // Vykreslí všechny produkty do mřížky
-    function renderProducts() {
-      const grid = document.getElementById('products-grid');
-      const countEl = document.getElementById('product-count');
-
-      // Aktualizace počítadla
-      countEl.textContent = products.length;
-
-      // Pokud nejsou žádné produkty, zobraz prázdný stav
-      if (products.length === 0) {
-        grid.innerHTML = `
-          <div class="empty-state">
-            <div class="emoji">💨</div>
-            <p>Žádné produkty zatím. Přidejte první!</p>
-          </div>`;
-        return;
-      }
-
-      // Sestavení HTML pro každý produkt
-      grid.innerHTML = products.map(p => createCardHTML(p)).join('');
-    }
-
-    // Vytvoří HTML řetězec pro jednu kartu produktu
-    function createCardHTML(product) {
-      // Formátování ceny s mezerou (1 234 Kč)
-      const priceFormatted = Number(product.price).toLocaleString('cs-CZ');
-
-      // Štítek "NOVÝ" jen pro čerstvě přidané produkty
-      const badgeHTML = product.isNew
-        ? '<span class="badge-new">Nový</span>'
-        : '';
-
-      // Bezpečné ošetření textu (zabránění XSS)
-      const safeName  = escapeHTML(product.name);
-      const safeDesc  = escapeHTML(product.desc);
-
-      return `
-        <article class="card">
-          <div class="card-img">
-            💨
-            ${badgeHTML}
-          </div>
-          <div class="card-body">
-            <div class="card-name">${safeName}</div>
-            <div class="card-desc">${safeDesc}</div>
-          </div>
-          <div class="card-footer">
-            <div class="card-price">
-              ${priceFormatted} Kč
-              <small>za pytlík</small>
-            </div>
-            <!-- Tlačítko Koupit – ID produktu předáváme přes data atribut -->
-            <button class="btn-buy" onclick="buyProduct(${product.id}, '${safeName}')">
-              🛒 Koupit
-            </button>
-          </div>
-        </article>`;
-    }
-
-    /* ============================================================
-       FORMULÁŘ – přidání nového produktu
-       ============================================================ */
-
-    /* ============================================================
-       HESLO – správné heslo pro otevření formuláře
-       ============================================================ */
-    const CORRECT_PASSWORD = 'jejux';
-
-    // Otevře modální okno s heslem (místo přímého otevření formuláře)
-    function toggleForm() {
-      const section = document.getElementById('add-form-section');
-
-      // Pokud je formulář otevřen → zavřeme ho
-      if (section.classList.contains('open')) {
-        section.classList.remove('open');
-        document.getElementById('toggle-form-btn').textContent = '＋ Přidat produkt';
-        resetForm();
-        return;
-      }
-
-      // Formulář je zavřen → nejdříve ukážeme modální okno s heslem
-      openModal();
-    }
-
-    // Zobrazí modální okno a zaměří input
-    function openModal() {
-      const modal = document.getElementById('pw-modal');
-      document.getElementById('pw-input').value = '';
-      document.getElementById('pw-error').textContent = '';
-      modal.classList.add('open');
-      setTimeout(() => document.getElementById('pw-input').focus(), 200);
-    }
-
-    // Zavře modální okno
-    function closeModal() {
-      document.getElementById('pw-modal').classList.remove('open');
-    }
-
-    // Klik na tmavé překrytí mimo box modal zavře
-    function handleOverlayClick(e) {
-      if (e.target.id === 'pw-modal') closeModal();
-    }
-
-    // Přepnutí viditelnosti hesla (👁 tlačítko)
-    function togglePwVisibility() {
-      const input = document.getElementById('pw-input');
-      input.type = input.type === 'password' ? 'text' : 'password';
-    }
-
-    // Ověření hesla po kliknutí na Potvrdit (nebo Enter)
-    function checkPassword() {
-      const input  = document.getElementById('pw-input');
-      const errEl  = document.getElementById('pw-error');
-      const pwWrap = document.getElementById('pw-wrap');
-
-      if (input.value === CORRECT_PASSWORD) {
-        // ✅ Správné heslo → zavřeme modal, otevřeme formulář
-        closeModal();
-        const section = document.getElementById('add-form-section');
-        section.classList.add('open');
-        document.getElementById('toggle-form-btn').textContent = '✕ Zavřít formulář';
-        setTimeout(() => {
-          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          document.getElementById('prod-name').focus();
-        }, 100);
-      } else {
-        // ❌ Špatné heslo → třes + chybová zpráva
-        errEl.textContent = '❌ Špatné heslo. Zkuste to znovu.';
-        pwWrap.classList.remove('shake');
-        // Reflow pro restart animace
-        void pwWrap.offsetWidth;
-        pwWrap.classList.add('shake');
-        input.value = '';
-        input.focus();
-        // Po doběhnutí animace odebereme třídu
-        setTimeout(() => pwWrap.classList.remove('shake'), 400);
-      }
-    }
-
-    // Přepínání viditelnosti formuláře (vnitřní – po ověření hesla)
-    function _openFormDirectly() {
-      const section = document.getElementById('add-form-section');
-      section.classList.add('open');
-      document.getElementById('toggle-form-btn').textContent = '✕ Zavřít formulář';
-      section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      document.getElementById('prod-name').focus();
-    }
-
-    // Vyčistí formulář a odstraní chybové stavy
-    function resetForm() {
-      document.getElementById('prod-name').value  = '';
-      document.getElementById('prod-desc').value  = '';
-      document.getElementById('prod-price').value = '';
-      ['field-name','field-desc','field-price'].forEach(id => {
-        document.getElementById(id).classList.remove('invalid');
-      });
-    }
-
-    // Odeslání formuláře (bez reloadu stránky)
-    function submitProduct() {
-      // Načtení hodnot z inputů
-      const name  = document.getElementById('prod-name').value.trim();
-      const desc  = document.getElementById('prod-desc').value.trim();
-      const price = parseFloat(document.getElementById('prod-price').value);
-
-      // ── Validace ──
-      let valid = true;
-
-      const fieldName = document.getElementById('field-name');
-      if (!name) {
-        fieldName.classList.add('invalid');
-        valid = false;
-      } else {
-        fieldName.classList.remove('invalid');
-      }
-
-      const fieldDesc = document.getElementById('field-desc');
-      if (!desc) {
-        fieldDesc.classList.add('invalid');
-        valid = false;
-      } else {
-        fieldDesc.classList.remove('invalid');
-      }
-
-      const fieldPrice = document.getElementById('field-price');
-      if (!price || price <= 0 || isNaN(price)) {
-        fieldPrice.classList.add('invalid');
-        valid = false;
-      } else {
-        fieldPrice.classList.remove('invalid');
-      }
-
-      if (!valid) return; // Zastavíme, pokud validace selhala
-
-      // ── Vytvoření nového produktu ──
-      const newProduct = {
-        id:    Date.now(),     // Unikátní ID (timestamp)
-        name,
-        desc,
-        price,
-        isNew: true            // Štítek "Nový" pro čerstvě přidané
-      };
-
-      // Přidáme na začátek pole (nejnovější první)
-      products.unshift(newProduct);
-
-      // Uložíme do localStorage
-      saveProducts(products);
-
-      // Překreslíme mřížku (bez reloadu)
-      renderProducts();
-
-      // Zavřeme a vyčistíme formulář
-      document.getElementById('add-form-section').classList.remove('open');
-      document.getElementById('toggle-form-btn').textContent = '＋ Přidat produkt';
-      resetForm();
-
-      // Zobrazíme potvrzovací toast
-      showToast('✅ Produkt byl úspěšně přidán!');
-
-      // Posuneme na mřížku produktů
-      document.getElementById('products-grid').scrollIntoView({ behavior: 'smooth' });
-    }
-
-    /* ============================================================
-       NÁKUP – potvrzení po kliknutí na Koupit
-       ============================================================ */
-
-    // Zobrazí potvrzovací alert (jak zadal zadavatel)
-    function buyProduct(id, name) {
-      // Najdeme produkt v poli podle ID
-      const product = products.find(p => p.id === id);
-      if (!product) return;
-
-      const price = Number(product.price).toLocaleString('cs-CZ');
-
-      // Alert s potvrzením nákupu (bonus)
-      alert(
-        `🎉 Děkujeme za nákup!\n\n` +
-        `Produkt: ${product.name}\n` +
-        `Cena: ${price} Kč\n\n` +
-        `Váš pytlík čerstvého vzduchu je na cestě. 💨`
-      );
-    }
-
-    /* ============================================================
-       TOAST NOTIFIKACE
-       ============================================================ */
-
-    // Zobrazí malý banner na spodu obrazovky na 3 sekundy
-    function showToast(message) {
-      const toast = document.getElementById('toast');
-      toast.textContent = message;
-      toast.classList.add('show');
-      setTimeout(() => toast.classList.remove('show'), 3000);
-    }
-
-    /* ============================================================
-       BEZPEČNOST – ochrana před XSS
-       ============================================================ */
-
-    // Escapuje speciální HTML znaky v řetězci
     function escapeHTML(str) {
       return String(str)
         .replace(/&/g, '&amp;')
@@ -1019,11 +541,233 @@
         .replace(/'/g, '&#39;');
     }
 
-    /* ============================================================
-       INICIALIZACE – spuštění při načtení stránky
-       ============================================================ */
-    renderProducts();
+    /* ── Toast ───────────────────────────────────── */
+    function Toast({ message, visible }) {
+      return <div className={`toast${visible ? ' show' : ''}`}>{message}</div>;
+    }
 
+    /* ── Password Modal ──────────────────────────── */
+    function PasswordModal({ open, onSuccess, onClose }) {
+      const [pw, setPw]           = useState('');
+      const [showPw, setShowPw]   = useState(false);
+      const [error, setError]     = useState('');
+      const [shaking, setShaking] = useState(false);
+      const inputRef              = useRef(null);
+
+      useEffect(() => {
+        if (open) {
+          setPw(''); setError(''); setShowPw(false);
+          setTimeout(() => inputRef.current?.focus(), 200);
+        }
+      }, [open]);
+
+      const confirm = () => {
+        if (pw === CORRECT_PW) {
+          onSuccess();
+        } else {
+          setError('❌ Špatné heslo. Zkuste to znovu.');
+          setShaking(true);
+          setPw('');
+          setTimeout(() => { setShaking(false); inputRef.current?.focus(); }, 420);
+        }
+      };
+
+      const handleKey = e => { if (e.key === 'Enter') confirm(); };
+      const handleOverlay = e => { if (e.target === e.currentTarget) onClose(); };
+
+      return (
+        <div className={`modal-overlay${open ? ' open' : ''}`} onClick={handleOverlay}>
+          <div className="modal-box">
+            <div className="modal-icon">🔐</div>
+            <h3>Chráněná sekce</h3>
+            <p>Pro přidání produktu zadejte heslo správce.</p>
+            <div className={`pw-wrap${shaking ? ' shake' : ''}`}>
+              <input
+                ref={inputRef}
+                type={showPw ? 'text' : 'password'}
+                value={pw}
+                onChange={e => setPw(e.target.value)}
+                onKeyDown={handleKey}
+                placeholder="Heslo…"
+                className={error ? 'invalid' : ''}
+                autoComplete="off"
+              />
+              <button className="eye-btn" onClick={() => setShowPw(v => !v)} title="Zobrazit/skrýt heslo">👁</button>
+            </div>
+            <div className="modal-error">{error}</div>
+            <div className="modal-actions">
+              <button className="btn btn-ghost" onClick={onClose}>Zrušit</button>
+              <button className="btn btn-primary" onClick={confirm}>Potvrdit →</button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    /* ── Add Product Form ────────────────────────── */
+    function AddForm({ onAdd, onClose }) {
+      const [name,  setName]  = useState('');
+      const [desc,  setDesc]  = useState('');
+      const [price, setPrice] = useState('');
+      const [errors, setErrors] = useState({});
+
+      const validate = () => {
+        const e = {};
+        if (!name.trim())              e.name  = 'Vyplňte prosím název.';
+        if (!desc.trim())              e.desc  = 'Vyplňte prosím popis.';
+        if (!price || parseFloat(price) <= 0) e.price = 'Zadejte kladnou cenu.';
+        return e;
+      };
+
+      const submit = () => {
+        const e = validate();
+        setErrors(e);
+        if (Object.keys(e).length) return;
+        onAdd({ id: Date.now(), name: name.trim(), desc: desc.trim(), price: parseFloat(price), isNew: true });
+      };
+
+      return (
+        <section className="form-panel">
+          <h2>📦 Nový produkt</h2>
+          <div className="form-grid">
+            <div className={`field full${errors.name ? ' invalid' : ''}`}>
+              <label>Název produktu</label>
+              <input value={name} onChange={e => setName(e.target.value)} placeholder="např. Alpský vzduch de luxe" maxLength={80} />
+              {errors.name && <span className="error-msg">{errors.name}</span>}
+            </div>
+            <div className={`field full${errors.desc ? ' invalid' : ''}`}>
+              <label>Popis</label>
+              <textarea value={desc} onChange={e => setDesc(e.target.value)} rows={3} placeholder="Co zákazník dostane? Odkud vzduch pochází?" />
+              {errors.desc && <span className="error-msg">{errors.desc}</span>}
+            </div>
+            <div className={`field${errors.price ? ' invalid' : ''}`}>
+              <label>Cena (Kč)</label>
+              <input type="number" value={price} onChange={e => setPrice(e.target.value)} placeholder="49" min="1" step="0.01" />
+              {errors.price && <span className="error-msg">{errors.price}</span>}
+            </div>
+          </div>
+          <div className="form-actions">
+            <button className="btn btn-ghost" onClick={onClose}>Zrušit</button>
+            <button className="btn btn-primary" onClick={submit}>Přidat produkt →</button>
+          </div>
+        </section>
+      );
+    }
+
+    /* ── Product Card ────────────────────────────── */
+    function ProductCard({ product, onBuy }) {
+      const priceFormatted = Number(product.price).toLocaleString('cs-CZ');
+      return (
+        <article className="card">
+          <div className="card-img">
+            💨
+            {product.isNew && <span className="badge-new">Nový</span>}
+          </div>
+          <div className="card-body">
+            <div className="card-name">{escapeHTML(product.name)}</div>
+            <div className="card-desc">{escapeHTML(product.desc)}</div>
+          </div>
+          <div className="card-footer">
+            <div className="card-price">
+              {priceFormatted} Kč
+              <small>za pytlík</small>
+            </div>
+            <button className="btn btn-buy" onClick={() => onBuy(product)}>
+              🛒 Koupit
+            </button>
+          </div>
+        </article>
+      );
+    }
+
+    /* ── App ─────────────────────────────────────── */
+    function AirMartApp() {
+      const [products,    setProducts]    = useState(() => loadProducts());
+      const [showForm,    setShowForm]    = useState(false);
+      const [showModal,   setShowModal]   = useState(false);
+      const [toast,       setToast]       = useState({ message: '', visible: false });
+      const toastTimer = useRef(null);
+
+      useEffect(() => { saveProducts(products); }, [products]);
+
+      const showToast = useCallback(msg => {
+        clearTimeout(toastTimer.current);
+        setToast({ message: msg, visible: true });
+        toastTimer.current = setTimeout(() => setToast(t => ({ ...t, visible: false })), 3000);
+      }, []);
+
+      const handleAddClick = () => {
+        if (showForm) { setShowForm(false); return; }
+        setShowModal(true);
+      };
+
+      const handlePasswordOk = () => {
+        setShowModal(false);
+        setShowForm(true);
+      };
+
+      const handleAddProduct = product => {
+        setProducts(prev => [product, ...prev]);
+        setShowForm(false);
+        showToast('✅ Produkt byl úspěšně přidán!');
+      };
+
+      const handleBuy = product => {
+        const price = Number(product.price).toLocaleString('cs-CZ');
+        alert(`🎉 Děkujeme za nákup!\n\nProdukt: ${product.name}\nCena: ${price} Kč\n\nVáš pytlík čerstvého vzduchu je na cestě. 💨`);
+      };
+
+      return (
+        <>
+          <header className="am-header">
+            <div className="logo">Air<span>Mart</span></div>
+            <div className="tagline">Prémiové tržiště čerstvého vzduchu · Dýcháme za vás</div>
+          </header>
+
+          <div className="am-action-bar">
+            <div className="count">
+              Nabídka: <strong>{products.length}</strong> produktů
+            </div>
+            <button className="btn btn-add" onClick={handleAddClick}>
+              {showForm ? '✕ Zavřít formulář' : '＋ Přidat produkt'}
+            </button>
+          </div>
+
+          <main className="am-main">
+            {showForm && (
+              <AddForm onAdd={handleAddProduct} onClose={() => setShowForm(false)} />
+            )}
+
+            <h2 className="section-heading">🌬️ Aktuální nabídka</h2>
+
+            <div className="products-grid">
+              {products.length === 0 ? (
+                <div className="empty-state">
+                  <div className="icon">💨</div>
+                  <p>Žádné produkty zatím. Přidejte první!</p>
+                </div>
+              ) : (
+                products.map(p => (
+                  <ProductCard key={p.id} product={p} onBuy={handleBuy} />
+                ))
+              )}
+            </div>
+          </main>
+
+          <footer className="am-footer">© 2025 AirMart s.r.o. · Vzduch je náš byznys</footer>
+
+          <PasswordModal
+            open={showModal}
+            onSuccess={handlePasswordOk}
+            onClose={() => setShowModal(false)}
+          />
+
+          <Toast message={toast.message} visible={toast.visible} />
+        </>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<AirMartApp />);
   </script>
 </body>
 </html>
