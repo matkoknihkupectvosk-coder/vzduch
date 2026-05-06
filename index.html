@@ -4,9 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AirMart – Tržiště čerstvého vzduchu</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
@@ -14,82 +11,83 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --sky:        #d6eeff;
-      --sky-mid:    #a8d8f0;
-      --sky-light:  #edf7ff;
-      --blue:       #1a6fa8;
-      --blue-dark:  #0e4d7a;
-      --accent:     #ff6b35;
-      --white:      #ffffff;
-      --gray-100:   #f4f8fb;
-      --gray-200:   #e2edf5;
-      --gray-500:   #7a9ab0;
-      --gray-700:   #3a5568;
-      --text:       #1b2d3e;
-      --radius:     18px;
-      --radius-sm:  10px;
-      --shadow:     0 4px 24px rgba(26,111,168,.10);
-      --shadow-lg:  0 16px 48px rgba(26,111,168,.20);
+      --bg:        #f5f9f5;
+      --surface:   #ffffff;
+      --surface2:  #eef5ee;
+      --green:     #2d7a4f;
+      --green-mid: #3fa06a;
+      --green-lt:  #c8ead8;
+      --teal:      #1a8a7a;
+      --amber:     #e8a020;
+      --red:       #d94f4f;
+      --text:      #1a2e22;
+      --text-mid:  #4a6655;
+      --text-muted:#88a898;
+      --border:    #d8e8df;
+      --radius:    20px;
+      --radius-sm: 12px;
+      --shadow:    0 2px 16px rgba(45,122,79,.09);
+      --shadow-lg: 0 12px 48px rgba(45,122,79,.16);
     }
 
     html, body { height: 100%; }
 
     body {
-      font-family: 'DM Sans', -apple-system, sans-serif;
-      background: var(--sky);
+      font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+      background: var(--bg);
       color: var(--text);
       min-height: 100vh;
       background-image:
-        radial-gradient(ellipse 80% 60% at 15% 5%,  #c4e5ff 0%, transparent 55%),
-        radial-gradient(ellipse 55% 75% at 85% 95%, #b0d9f4 0%, transparent 55%),
-        radial-gradient(ellipse 40% 50% at 60% 40%, #ddf0ff 0%, transparent 50%);
+        radial-gradient(ellipse 70% 55% at 8%   2%,  #dff0e6 0%, transparent 60%),
+        radial-gradient(ellipse 50% 65% at 92%  95%, #d4ecdf 0%, transparent 55%),
+        radial-gradient(ellipse 60% 40% at 55%  50%, #edf7f0 0%, transparent 60%);
     }
 
-    /* ── HEADER ────────────────────────────────── */
-    .am-header {
-      background: linear-gradient(135deg, var(--blue-dark) 0%, #1a5a8c 100%);
-      color: var(--white);
-      padding: 3rem 2rem 2.5rem;
+    /* ── HEADER ───────────────────────────────── */
+    .header {
+      background: var(--green);
+      color: #fff;
+      padding: 2.75rem 2rem 2.25rem;
       text-align: center;
       position: relative;
       overflow: hidden;
     }
-    .am-header::before,
-    .am-header::after {
+    .header::before {
       content: '';
       position: absolute;
-      border-radius: 50%;
-      background: rgba(255,255,255,.05);
+      inset: 0;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,.07) 120px, transparent 120px),
+        radial-gradient(circle at 88% 80%, rgba(255,255,255,.05) 90px,  transparent 90px);
     }
-    .am-header::before { width: 360px; height: 360px; top: -130px; left: -100px; }
-    .am-header::after  { width: 240px; height: 240px; bottom: -80px; right: -60px; }
 
-    .am-header .logo {
-      font-family: 'Playfair Display', serif;
-      font-size: clamp(2.2rem, 6vw, 3.5rem);
-      font-weight: 900;
-      letter-spacing: -1.5px;
+    .header-inner { position: relative; z-index: 1; }
+
+    .logo {
+      font-size: clamp(2rem, 6vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -2px;
       line-height: 1;
-      position: relative;
-      z-index: 1;
+      color: #fff;
     }
-    .am-header .logo span { color: var(--sky-mid); }
-    .am-header .tagline {
-      margin-top: .7rem;
-      font-size: .95rem;
+    .logo em {
+      font-style: normal;
+      color: #7de0b0;
+    }
+    .tagline {
+      margin-top: .55rem;
+      font-size: .9rem;
       font-weight: 300;
-      opacity: .7;
-      font-style: italic;
-      position: relative;
-      z-index: 1;
+      opacity: .65;
+      letter-spacing: .02em;
     }
 
-    /* ── ACTION BAR ─────────────────────────────── */
-    .am-action-bar {
-      background: rgba(255,255,255,.92);
-      backdrop-filter: blur(12px);
-      border-bottom: 1.5px solid var(--gray-200);
-      padding: .85rem 2rem;
+    /* ── NAV BAR ──────────────────────────────── */
+    .navbar {
+      background: rgba(255,255,255,.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1.5px solid var(--border);
+      padding: .8rem 2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -98,242 +96,244 @@
       position: sticky;
       top: 0;
       z-index: 200;
-      box-shadow: 0 2px 16px rgba(26,111,168,.07);
+      box-shadow: 0 2px 12px rgba(45,122,79,.06);
     }
-    .am-action-bar .count {
+    .navbar .count {
       font-size: .875rem;
-      color: var(--gray-500);
-      font-weight: 300;
+      color: var(--text-muted);
     }
-    .am-action-bar .count strong { color: var(--blue); font-weight: 600; }
+    .navbar .count b { color: var(--green); }
 
-    /* ── BUTTONS ────────────────────────────────── */
+    /* ── BUTTONS ──────────────────────────────── */
     .btn {
       border: none;
       border-radius: 50px;
-      font-family: 'DM Sans', sans-serif;
-      font-weight: 500;
+      font-family: inherit;
+      font-weight: 600;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
       gap: .4rem;
-      transition: transform .15s, box-shadow .15s, background .15s, color .15s, border-color .15s;
+      transition: all .17s;
     }
-    .btn:active { transform: scale(.96) !important; }
+    .btn:active { transform: scale(.95) !important; }
 
     .btn-add {
-      background: var(--accent);
-      color: var(--white);
-      padding: .65rem 1.5rem;
-      font-size: .9rem;
-      box-shadow: 0 4px 14px rgba(255,107,53,.25);
+      background: var(--amber);
+      color: #fff;
+      padding: .6rem 1.45rem;
+      font-size: .88rem;
+      box-shadow: 0 4px 16px rgba(232,160,32,.3);
     }
-    .btn-add:hover {
-      background: #e0541f;
-      transform: translateY(-2px);
-      box-shadow: 0 8px 22px rgba(255,107,53,.35);
-    }
+    .btn-add:hover { filter: brightness(1.08); transform: translateY(-2px); }
 
     .btn-primary {
-      background: var(--blue);
-      color: var(--white);
+      background: var(--green);
+      color: #fff;
       padding: .65rem 1.6rem;
-      font-size: .95rem;
+      font-size: .93rem;
     }
-    .btn-primary:hover { background: var(--blue-dark); transform: translateY(-1px); }
+    .btn-primary:hover { background: #235f3d; transform: translateY(-1px); }
 
     .btn-ghost {
       background: transparent;
-      color: var(--gray-500);
-      border: 1.5px solid var(--gray-200);
+      color: var(--text-muted);
+      border: 1.5px solid var(--border);
       padding: .65rem 1.2rem;
-      font-size: .95rem;
+      font-size: .93rem;
     }
-    .btn-ghost:hover { border-color: var(--gray-500); color: var(--text); }
+    .btn-ghost:hover { border-color: var(--green-mid); color: var(--text); }
 
     .btn-buy {
-      background: var(--blue);
-      color: var(--white);
-      padding: .5rem 1.1rem;
-      font-size: .85rem;
-      box-shadow: 0 2px 8px rgba(26,111,168,.2);
+      background: var(--teal);
+      color: #fff;
+      padding: .5rem 1.15rem;
+      font-size: .83rem;
+      box-shadow: 0 3px 10px rgba(26,138,122,.22);
     }
-    .btn-buy:hover { background: var(--blue-dark); transform: scale(1.05); }
+    .btn-buy:hover { background: #147065; transform: scale(1.05); }
 
-    /* ── MAIN ───────────────────────────────────── */
-    .am-main {
-      max-width: 1200px;
+    /* ── MAIN ─────────────────────────────────── */
+    .main {
+      max-width: 1160px;
       margin: 0 auto;
       padding: 2.5rem 1.5rem 5rem;
     }
 
-    /* ── FORM PANEL ─────────────────────────────── */
+    /* ── FORM PANEL ───────────────────────────── */
     .form-panel {
-      background: var(--white);
+      background: var(--surface);
       border-radius: var(--radius);
-      padding: 2.25rem 2rem;
+      padding: 2rem 2rem 1.75rem;
       margin-bottom: 2.5rem;
       box-shadow: var(--shadow-lg);
-      animation: slideDown .3s ease;
+      border: 1.5px solid var(--border);
+      animation: slideDown .28s ease;
     }
     @keyframes slideDown {
-      from { opacity: 0; transform: translateY(-14px); }
+      from { opacity: 0; transform: translateY(-12px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
     .form-panel h2 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.45rem;
-      color: var(--blue-dark);
-      margin-bottom: 1.5rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--green);
+      margin-bottom: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
     }
 
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1.1rem;
+      gap: 1rem;
     }
-    @media (max-width: 580px) { .form-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 560px) { .form-grid { grid-template-columns: 1fr; } }
 
-    .field { display: flex; flex-direction: column; gap: .35rem; }
+    .field { display: flex; flex-direction: column; gap: .32rem; }
     .field.full { grid-column: 1 / -1; }
 
     .field label {
-      font-size: .78rem;
-      font-weight: 600;
-      color: var(--gray-700);
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--text-mid);
       text-transform: uppercase;
-      letter-spacing: .07em;
+      letter-spacing: .08em;
     }
 
     .field input,
     .field textarea {
-      border: 1.5px solid var(--gray-200);
+      border: 1.5px solid var(--border);
       border-radius: var(--radius-sm);
-      padding: .7rem 1rem;
-      font-family: 'DM Sans', sans-serif;
-      font-size: .95rem;
+      padding: .68rem 1rem;
+      font-family: inherit;
+      font-size: .93rem;
       color: var(--text);
-      background: var(--gray-100);
+      background: var(--surface2);
       outline: none;
       transition: border-color .2s, box-shadow .2s, background .2s;
       resize: vertical;
     }
     .field input:focus,
     .field textarea:focus {
-      border-color: var(--blue);
-      background: var(--white);
-      box-shadow: 0 0 0 3px rgba(26,111,168,.12);
+      border-color: var(--green-mid);
+      background: var(--surface);
+      box-shadow: 0 0 0 3px rgba(63,160,106,.14);
     }
     .field.invalid input,
-    .field.invalid textarea { border-color: #d9534f; }
-
-    .field .error-msg {
-      font-size: .78rem;
-      color: #d9534f;
-      font-weight: 500;
-    }
+    .field.invalid textarea { border-color: var(--red); }
+    .field .err { font-size: .76rem; color: var(--red); font-weight: 600; }
 
     .form-actions {
       display: flex;
-      gap: .75rem;
-      margin-top: 1.5rem;
+      gap: .7rem;
+      margin-top: 1.4rem;
       justify-content: flex-end;
     }
 
-    /* ── SECTION HEADING ────────────────────────── */
-    .section-heading {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.6rem;
-      color: var(--blue-dark);
+    /* ── SECTION HEADING ──────────────────────── */
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--text);
       margin-bottom: 1.5rem;
       display: flex;
       align-items: center;
-      gap: .5rem;
+      gap: .45rem;
+    }
+    .section-title span {
+      font-size: .8rem;
+      font-weight: 600;
+      background: var(--green-lt);
+      color: var(--green);
+      padding: .2rem .65rem;
+      border-radius: 50px;
     }
 
-    /* ── PRODUCT GRID ───────────────────────────── */
-    .products-grid {
+    /* ── PRODUCT GRID ─────────────────────────── */
+    .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.75rem;
+      grid-template-columns: repeat(auto-fill, minmax(268px, 1fr));
+      gap: 1.5rem;
     }
 
-    /* ── PRODUCT CARD ───────────────────────────── */
+    /* ── PRODUCT CARD ─────────────────────────── */
     .card {
-      background: var(--white);
+      background: var(--surface);
       border-radius: var(--radius);
       overflow: hidden;
+      border: 1.5px solid var(--border);
       box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
-      transition: transform .25s, box-shadow .25s;
-      animation: cardIn .4s ease both;
+      transition: transform .22s, box-shadow .22s, border-color .22s;
+      animation: cardIn .38s ease both;
     }
     @keyframes cardIn {
-      from { opacity: 0; transform: translateY(22px) scale(.97); }
+      from { opacity: 0; transform: translateY(18px) scale(.97); }
       to   { opacity: 1; transform: translateY(0)   scale(1); }
     }
     .card:hover {
-      transform: translateY(-7px);
+      transform: translateY(-6px);
       box-shadow: var(--shadow-lg);
+      border-color: var(--green-lt);
     }
 
-    .card-img {
-      height: 190px;
-      background: linear-gradient(135deg, var(--sky-light) 0%, var(--sky-mid) 100%);
+    .card-thumb {
+      height: 175px;
+      background: linear-gradient(135deg, #d0f0e0 0%, #a8dfc4 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 4.5rem;
+      font-size: 4rem;
       position: relative;
-      overflow: hidden;
     }
-    .card-img::after {
+    .card-thumb::after {
       content: '';
       position: absolute;
       inset: 0;
       background:
-        radial-gradient(circle at 18% 82%, rgba(255,255,255,.55) 9px, transparent 9px),
-        radial-gradient(circle at 72% 22%, rgba(255,255,255,.45) 6px, transparent 6px),
-        radial-gradient(circle at 55% 68%, rgba(255,255,255,.4)  5px, transparent 5px),
-        radial-gradient(circle at 88% 55%, rgba(255,255,255,.35) 4px, transparent 4px);
+        radial-gradient(circle at 15% 80%, rgba(255,255,255,.6) 8px, transparent 8px),
+        radial-gradient(circle at 78% 20%, rgba(255,255,255,.5) 6px, transparent 6px),
+        radial-gradient(circle at 50% 65%, rgba(255,255,255,.4) 4px, transparent 4px);
     }
 
-    .badge-new {
+    .badge {
       position: absolute;
-      top: 14px; right: 14px;
-      background: var(--accent);
-      color: var(--white);
-      font-size: .68rem;
-      font-weight: 600;
+      top: 12px; right: 12px;
+      background: var(--amber);
+      color: #fff;
+      font-size: .66rem;
+      font-weight: 700;
       padding: .22rem .6rem;
       border-radius: 50px;
       text-transform: uppercase;
       letter-spacing: .07em;
       z-index: 1;
-      box-shadow: 0 3px 10px rgba(255,107,53,.4);
+      box-shadow: 0 3px 10px rgba(232,160,32,.4);
     }
 
     .card-body {
-      padding: 1.35rem 1.4rem;
+      padding: 1.25rem 1.35rem;
       flex: 1;
       display: flex;
       flex-direction: column;
-      gap: .45rem;
+      gap: .4rem;
     }
 
     .card-name {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
+      font-weight: 700;
       line-height: 1.3;
-      color: var(--blue-dark);
+      color: var(--text);
     }
 
     .card-desc {
-      font-size: .875rem;
-      color: var(--gray-700);
-      font-weight: 300;
+      font-size: .855rem;
+      color: var(--text-mid);
+      font-weight: 400;
       line-height: 1.55;
       flex: 1;
     }
@@ -342,64 +342,58 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 1rem 1.4rem 1.2rem;
-      border-top: 1.5px solid var(--gray-200);
-      background: var(--gray-100);
+      padding: .95rem 1.35rem 1.1rem;
+      border-top: 1.5px solid var(--border);
+      background: var(--surface2);
     }
 
     .card-price {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--blue);
-      letter-spacing: -.03em;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--green);
+      letter-spacing: -.02em;
     }
     .card-price small {
-      font-size: .7rem;
+      font-size: .68rem;
       font-weight: 400;
-      color: var(--gray-500);
+      color: var(--text-muted);
       display: block;
-      margin-top: -1px;
     }
 
-    /* ── EMPTY STATE ────────────────────────────── */
-    .empty-state {
+    /* ── EMPTY STATE ──────────────────────────── */
+    .empty {
       text-align: center;
-      padding: 5rem 1rem;
+      padding: 4.5rem 1rem;
       grid-column: 1 / -1;
     }
-    .empty-state .icon { font-size: 4rem; margin-bottom: 1rem; }
-    .empty-state p {
-      color: var(--gray-500);
-      font-weight: 300;
-      font-style: italic;
-      font-size: 1.05rem;
-    }
+    .empty .icon { font-size: 3.5rem; margin-bottom: 1rem; }
+    .empty p { color: var(--text-muted); font-size: 1rem; }
 
-    /* ── TOAST ──────────────────────────────────── */
+    /* ── TOAST ────────────────────────────────── */
     .toast {
       position: fixed;
       bottom: 2rem;
       left: 50%;
-      transform: translateX(-50%) translateY(140%);
-      background: var(--blue-dark);
-      color: var(--white);
-      padding: .9rem 1.8rem;
+      transform: translateX(-50%) translateY(160%);
+      background: var(--green);
+      color: #fff;
+      padding: .85rem 1.7rem;
       border-radius: 50px;
-      font-size: .9rem;
-      font-weight: 500;
-      box-shadow: 0 10px 36px rgba(14,77,122,.35);
+      font-size: .88rem;
+      font-weight: 600;
+      box-shadow: 0 10px 36px rgba(45,122,79,.35);
       z-index: 999;
       white-space: nowrap;
       transition: transform .35s cubic-bezier(.34,1.56,.64,1);
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
 
-    /* ── MODAL ──────────────────────────────────── */
-    .modal-overlay {
+    /* ── MODAL (sdílený) ──────────────────────── */
+    .overlay {
       position: fixed;
       inset: 0;
-      background: rgba(10,30,50,.5);
-      backdrop-filter: blur(5px);
+      background: rgba(10,25,16,.5);
+      backdrop-filter: blur(6px);
       z-index: 500;
       display: flex;
       align-items: center;
@@ -407,79 +401,96 @@
       padding: 1rem;
       opacity: 0;
       pointer-events: none;
-      transition: opacity .25s;
+      transition: opacity .22s;
     }
-    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .overlay.open { opacity: 1; pointer-events: all; }
 
-    .modal-box {
-      background: var(--white);
+    .modal {
+      background: var(--surface);
       border-radius: var(--radius);
       padding: 2.25rem 2rem 2rem;
       width: 100%;
-      max-width: 380px;
-      box-shadow: 0 24px 72px rgba(14,77,122,.28);
-      transform: scale(.9) translateY(20px);
-      transition: transform .32s cubic-bezier(.34,1.56,.64,1);
+      max-width: 390px;
+      box-shadow: 0 28px 80px rgba(20,60,35,.25);
+      border: 1.5px solid var(--border);
+      transform: scale(.9) translateY(24px);
+      transition: transform .3s cubic-bezier(.34,1.56,.64,1);
       text-align: center;
     }
-    .modal-overlay.open .modal-box { transform: scale(1) translateY(0); }
+    .overlay.open .modal { transform: scale(1) translateY(0); }
 
-    .modal-icon { font-size: 2.8rem; margin-bottom: .6rem; }
-    .modal-box h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.35rem;
-      color: var(--blue-dark);
+    .modal-icon { font-size: 2.8rem; margin-bottom: .6rem; line-height: 1; }
+    .modal h3 {
+      font-size: 1.3rem;
+      font-weight: 800;
+      color: var(--text);
       margin-bottom: .4rem;
     }
-    .modal-box p {
-      font-size: .87rem;
-      color: var(--gray-500);
-      font-weight: 300;
-      margin-bottom: 1.4rem;
+    .modal p {
+      font-size: .875rem;
+      color: var(--text-mid);
+      margin-bottom: 1.35rem;
+      line-height: 1.55;
     }
 
+    /* buy modal specifics */
+    .buy-detail {
+      background: var(--surface2);
+      border-radius: var(--radius-sm);
+      padding: 1rem 1.25rem;
+      text-align: left;
+      margin-bottom: 1.5rem;
+      border: 1.5px solid var(--border);
+    }
+    .buy-detail .row {
+      display: flex;
+      justify-content: space-between;
+      font-size: .875rem;
+      color: var(--text-mid);
+      padding: .3rem 0;
+    }
+    .buy-detail .row:not(:last-child) { border-bottom: 1px solid var(--border); }
+    .buy-detail .row b { color: var(--text); }
+    .buy-detail .price-row { font-size: 1.05rem; font-weight: 800; color: var(--green); }
+
+    /* pw modal specifics */
     .pw-wrap { position: relative; margin-bottom: .5rem; }
     .pw-wrap input {
       width: 100%;
-      border: 1.5px solid var(--gray-200);
+      border: 1.5px solid var(--border);
       border-radius: var(--radius-sm);
       padding: .75rem 3rem .75rem 1.1rem;
-      font-family: 'DM Sans', sans-serif;
+      font-family: inherit;
       font-size: 1rem;
       text-align: center;
       letter-spacing: .12em;
       color: var(--text);
-      background: var(--gray-100);
+      background: var(--surface2);
       outline: none;
       transition: border-color .2s, box-shadow .2s, background .2s;
     }
     .pw-wrap input:focus {
-      border-color: var(--blue);
-      background: var(--white);
-      box-shadow: 0 0 0 3px rgba(26,111,168,.12);
+      border-color: var(--green-mid);
+      background: var(--surface);
+      box-shadow: 0 0 0 3px rgba(63,160,106,.14);
     }
-    .pw-wrap input.invalid { border-color: #d9534f; }
+    .pw-wrap input.err-border { border-color: var(--red); }
 
     .eye-btn {
       position: absolute;
-      right: .75rem;
-      top: 50%;
+      right: .75rem; top: 50%;
       transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 1.1rem;
-      color: var(--gray-500);
-      padding: .2rem;
-      line-height: 1;
+      background: none; border: none;
+      cursor: pointer; font-size: 1.1rem;
+      color: var(--text-muted); padding: .2rem;
     }
 
-    .modal-error {
-      font-size: .8rem;
-      color: #d9534f;
+    .modal-err {
+      font-size: .79rem;
+      color: var(--red);
       min-height: 1.2rem;
       margin-bottom: .9rem;
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .modal-actions { display: flex; gap: .65rem; }
@@ -488,113 +499,119 @@
 
     @keyframes shake {
       0%,100% { transform: translateX(0); }
-      20%      { transform: translateX(-8px); }
-      40%      { transform: translateX(8px); }
-      60%      { transform: translateX(-5px); }
-      80%      { transform: translateX(5px); }
+      20% { transform: translateX(-8px); }
+      40% { transform: translateX(8px); }
+      60% { transform: translateX(-5px); }
+      80% { transform: translateX(5px); }
     }
-    .pw-wrap.shake input { animation: shake .4s ease; border-color: #d9534f; }
+    .pw-wrap.shake input { animation: shake .4s ease; }
 
-    /* ── FOOTER ─────────────────────────────────── */
-    .am-footer {
+    /* ── FOOTER ───────────────────────────────── */
+    .footer {
       text-align: center;
       padding: 1.75rem;
-      font-size: .8rem;
-      color: var(--gray-500);
-      font-style: italic;
+      font-size: .78rem;
+      color: var(--text-muted);
     }
   </style>
 </head>
 <body>
   <div id="root"></div>
-
   <script type="text/babel" data-presets="react">
     const { useState, useEffect, useRef, useCallback } = React;
 
-    const STORAGE_KEY    = 'airmart_products';
-    const CORRECT_PW     = 'jejux';
+    const STORAGE_KEY = 'airmart_products';
+    const CORRECT_PW  = 'jejux';
 
-    const DEFAULT_PRODUCTS = [
+    const DEFAULTS = [
       { id: 1, name: 'Čerstvý vzduch v pytlíku – Originál',  desc: 'Náš bestseller. Vzduch pečlivě nasbíraný v českých horách, balený za úsvitu. Bez konzervantů, bez přidaného kyslíku.', price: 49,  isNew: false },
       { id: 2, name: 'Alpský vzduch Premium',                desc: 'Luxusní směs ze švýcarských Alp ve výšce 3 000 m n. m. Krystalicky čistý, s nádechem sněhu a svobody.',                price: 199, isNew: false },
       { id: 3, name: 'Mořský vánek – edice léto',            desc: 'Jemně osolený vzduch z pobřeží Jadranského moře. Ideální pro domácí saunování nebo meditaci.',                           price: 89,  isNew: false },
     ];
 
     function loadProducts() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (raw) return JSON.parse(raw);
-      } catch {}
-      return DEFAULT_PRODUCTS;
+      try { const r = localStorage.getItem(STORAGE_KEY); if (r) return JSON.parse(r); } catch {}
+      return DEFAULTS;
+    }
+    function saveProducts(p) { localStorage.setItem(STORAGE_KEY, JSON.stringify(p)); }
+    function esc(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+                      .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
     }
 
-    function saveProducts(products) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+    /* ── Toast ─────────────────────────────────── */
+    function Toast({ msg, show }) {
+      return <div className={`toast${show ? ' show' : ''}`}>{msg}</div>;
     }
 
-    function escapeHTML(str) {
-      return String(str)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
+    /* ── Buy Confirmation Modal ─────────────────── */
+    function BuyModal({ product, onClose }) {
+      const open = !!product;
+      const price = product ? Number(product.price).toLocaleString('cs-CZ') : '';
+      const handleOverlay = e => { if (e.target === e.currentTarget) onClose(); };
+      return (
+        <div className={`overlay${open ? ' open' : ''}`} onClick={handleOverlay}>
+          <div className="modal">
+            <div className="modal-icon">🎉</div>
+            <h3>Děkujeme za nákup!</h3>
+            <p>Váš pytlík čerstvého vzduchu je na cestě. 💨</p>
+            {product && (
+              <div className="buy-detail">
+                <div className="row"><span>Produkt</span><b>{esc(product.name)}</b></div>
+                <div className="row price-row"><span>Cena</span><b>{price} Kč</b></div>
+              </div>
+            )}
+            <button className="btn btn-primary" style={{width:'100%'}} onClick={onClose}>
+              Zavřít
+            </button>
+          </div>
+        </div>
+      );
     }
 
-    /* ── Toast ───────────────────────────────────── */
-    function Toast({ message, visible }) {
-      return <div className={`toast${visible ? ' show' : ''}`}>{message}</div>;
-    }
-
-    /* ── Password Modal ──────────────────────────── */
-    function PasswordModal({ open, onSuccess, onClose }) {
-      const [pw, setPw]           = useState('');
-      const [showPw, setShowPw]   = useState(false);
-      const [error, setError]     = useState('');
-      const [shaking, setShaking] = useState(false);
-      const inputRef              = useRef(null);
+    /* ── Password Modal ─────────────────────────── */
+    function PwModal({ open, onSuccess, onClose }) {
+      const [pw, setPw]         = useState('');
+      const [show, setShow]     = useState(false);
+      const [err, setErr]       = useState('');
+      const [shake, setShake]   = useState(false);
+      const ref = useRef(null);
 
       useEffect(() => {
-        if (open) {
-          setPw(''); setError(''); setShowPw(false);
-          setTimeout(() => inputRef.current?.focus(), 200);
-        }
+        if (open) { setPw(''); setErr(''); setShow(false); setTimeout(() => ref.current?.focus(), 200); }
       }, [open]);
 
       const confirm = () => {
-        if (pw === CORRECT_PW) {
-          onSuccess();
-        } else {
-          setError('❌ Špatné heslo. Zkuste to znovu.');
-          setShaking(true);
-          setPw('');
-          setTimeout(() => { setShaking(false); inputRef.current?.focus(); }, 420);
+        if (pw === CORRECT_PW) { onSuccess(); }
+        else {
+          setErr('❌ Špatné heslo. Zkuste to znovu.');
+          setShake(true); setPw('');
+          setTimeout(() => { setShake(false); ref.current?.focus(); }, 420);
         }
       };
 
-      const handleKey = e => { if (e.key === 'Enter') confirm(); };
       const handleOverlay = e => { if (e.target === e.currentTarget) onClose(); };
 
       return (
-        <div className={`modal-overlay${open ? ' open' : ''}`} onClick={handleOverlay}>
-          <div className="modal-box">
+        <div className={`overlay${open ? ' open' : ''}`} onClick={handleOverlay}>
+          <div className="modal">
             <div className="modal-icon">🔐</div>
             <h3>Chráněná sekce</h3>
             <p>Pro přidání produktu zadejte heslo správce.</p>
-            <div className={`pw-wrap${shaking ? ' shake' : ''}`}>
+            <div className={`pw-wrap${shake ? ' shake' : ''}`}>
               <input
-                ref={inputRef}
-                type={showPw ? 'text' : 'password'}
+                ref={ref}
+                type={show ? 'text' : 'password'}
                 value={pw}
                 onChange={e => setPw(e.target.value)}
-                onKeyDown={handleKey}
+                onKeyDown={e => e.key === 'Enter' && confirm()}
                 placeholder="Heslo…"
-                className={error ? 'invalid' : ''}
+                className={err ? 'err-border' : ''}
                 autoComplete="off"
               />
-              <button className="eye-btn" onClick={() => setShowPw(v => !v)} title="Zobrazit/skrýt heslo">👁</button>
+              <button className="eye-btn" onClick={() => setShow(v => !v)}>👁</button>
             </div>
-            <div className="modal-error">{error}</div>
+            <div className="modal-err">{err}</div>
             <div className="modal-actions">
               <button className="btn btn-ghost" onClick={onClose}>Zrušit</button>
               <button className="btn btn-primary" onClick={confirm}>Potvrdit →</button>
@@ -604,24 +621,19 @@
       );
     }
 
-    /* ── Add Product Form ────────────────────────── */
+    /* ── Add Form ───────────────────────────────── */
     function AddForm({ onAdd, onClose }) {
-      const [name,  setName]  = useState('');
-      const [desc,  setDesc]  = useState('');
+      const [name, setName]   = useState('');
+      const [desc, setDesc]   = useState('');
       const [price, setPrice] = useState('');
-      const [errors, setErrors] = useState({});
-
-      const validate = () => {
-        const e = {};
-        if (!name.trim())              e.name  = 'Vyplňte prosím název.';
-        if (!desc.trim())              e.desc  = 'Vyplňte prosím popis.';
-        if (!price || parseFloat(price) <= 0) e.price = 'Zadejte kladnou cenu.';
-        return e;
-      };
+      const [errs, setErrs]   = useState({});
 
       const submit = () => {
-        const e = validate();
-        setErrors(e);
+        const e = {};
+        if (!name.trim())                    e.name  = 'Vyplňte prosím název.';
+        if (!desc.trim())                    e.desc  = 'Vyplňte prosím popis.';
+        if (!price || parseFloat(price) <= 0) e.price = 'Zadejte kladnou cenu.';
+        setErrs(e);
         if (Object.keys(e).length) return;
         onAdd({ id: Date.now(), name: name.trim(), desc: desc.trim(), price: parseFloat(price), isNew: true });
       };
@@ -630,20 +642,20 @@
         <section className="form-panel">
           <h2>📦 Nový produkt</h2>
           <div className="form-grid">
-            <div className={`field full${errors.name ? ' invalid' : ''}`}>
+            <div className={`field full${errs.name ? ' invalid' : ''}`}>
               <label>Název produktu</label>
               <input value={name} onChange={e => setName(e.target.value)} placeholder="např. Alpský vzduch de luxe" maxLength={80} />
-              {errors.name && <span className="error-msg">{errors.name}</span>}
+              {errs.name && <span className="err">{errs.name}</span>}
             </div>
-            <div className={`field full${errors.desc ? ' invalid' : ''}`}>
+            <div className={`field full${errs.desc ? ' invalid' : ''}`}>
               <label>Popis</label>
               <textarea value={desc} onChange={e => setDesc(e.target.value)} rows={3} placeholder="Co zákazník dostane? Odkud vzduch pochází?" />
-              {errors.desc && <span className="error-msg">{errors.desc}</span>}
+              {errs.desc && <span className="err">{errs.desc}</span>}
             </div>
-            <div className={`field${errors.price ? ' invalid' : ''}`}>
+            <div className={`field${errs.price ? ' invalid' : ''}`}>
               <label>Cena (Kč)</label>
               <input type="number" value={price} onChange={e => setPrice(e.target.value)} placeholder="49" min="1" step="0.01" />
-              {errors.price && <span className="error-msg">{errors.price}</span>}
+              {errs.price && <span className="err">{errs.price}</span>}
             </div>
           </div>
           <div className="form-actions">
@@ -654,120 +666,101 @@
       );
     }
 
-    /* ── Product Card ────────────────────────────── */
-    function ProductCard({ product, onBuy }) {
-      const priceFormatted = Number(product.price).toLocaleString('cs-CZ');
+    /* ── Product Card ───────────────────────────── */
+    function Card({ p, onBuy }) {
+      const price = Number(p.price).toLocaleString('cs-CZ');
       return (
         <article className="card">
-          <div className="card-img">
+          <div className="card-thumb">
             💨
-            {product.isNew && <span className="badge-new">Nový</span>}
+            {p.isNew && <span className="badge">Nový</span>}
           </div>
           <div className="card-body">
-            <div className="card-name">{escapeHTML(product.name)}</div>
-            <div className="card-desc">{escapeHTML(product.desc)}</div>
+            <div className="card-name">{esc(p.name)}</div>
+            <div className="card-desc">{esc(p.desc)}</div>
           </div>
           <div className="card-footer">
-            <div className="card-price">
-              {priceFormatted} Kč
-              <small>za pytlík</small>
-            </div>
-            <button className="btn btn-buy" onClick={() => onBuy(product)}>
-              🛒 Koupit
-            </button>
+            <div className="card-price">{price} Kč<small>za pytlík</small></div>
+            <button className="btn btn-buy" onClick={() => onBuy(p)}>🛒 Koupit</button>
           </div>
         </article>
       );
     }
 
-    /* ── App ─────────────────────────────────────── */
-    function AirMartApp() {
-      const [products,    setProducts]    = useState(() => loadProducts());
-      const [showForm,    setShowForm]    = useState(false);
-      const [showModal,   setShowModal]   = useState(false);
-      const [toast,       setToast]       = useState({ message: '', visible: false });
-      const toastTimer = useRef(null);
+    /* ── App ────────────────────────────────────── */
+    function App() {
+      const [products,  setProducts]  = useState(() => loadProducts());
+      const [showForm,  setShowForm]  = useState(false);
+      const [showPw,    setShowPw]    = useState(false);
+      const [buyTarget, setBuyTarget] = useState(null);
+      const [toast,     setToast]     = useState({ msg: '', show: false });
+      const timer = useRef(null);
 
       useEffect(() => { saveProducts(products); }, [products]);
 
-      const showToast = useCallback(msg => {
-        clearTimeout(toastTimer.current);
-        setToast({ message: msg, visible: true });
-        toastTimer.current = setTimeout(() => setToast(t => ({ ...t, visible: false })), 3000);
+      const flash = useCallback(msg => {
+        clearTimeout(timer.current);
+        setToast({ msg, show: true });
+        timer.current = setTimeout(() => setToast(t => ({ ...t, show: false })), 3000);
       }, []);
 
       const handleAddClick = () => {
         if (showForm) { setShowForm(false); return; }
-        setShowModal(true);
-      };
-
-      const handlePasswordOk = () => {
-        setShowModal(false);
-        setShowForm(true);
-      };
-
-      const handleAddProduct = product => {
-        setProducts(prev => [product, ...prev]);
-        setShowForm(false);
-        showToast('✅ Produkt byl úspěšně přidán!');
-      };
-
-      const handleBuy = product => {
-        const price = Number(product.price).toLocaleString('cs-CZ');
-        alert(`🎉 Děkujeme za nákup!\n\nProdukt: ${product.name}\nCena: ${price} Kč\n\nVáš pytlík čerstvého vzduchu je na cestě. 💨`);
+        setShowPw(true);
       };
 
       return (
         <>
-          <header className="am-header">
-            <div className="logo">Air<span>Mart</span></div>
-            <div className="tagline">Prémiové tržiště čerstvého vzduchu · Dýcháme za vás</div>
+          <header className="header">
+            <div className="header-inner">
+              <div className="logo">Air<em>Mart</em></div>
+              <div className="tagline">Prémiové tržiště čerstvého vzduchu · Dýcháme za vás</div>
+            </div>
           </header>
 
-          <div className="am-action-bar">
-            <div className="count">
-              Nabídka: <strong>{products.length}</strong> produktů
-            </div>
+          <nav className="navbar">
+            <div className="count">Nabídka: <b>{products.length}</b> produktů</div>
             <button className="btn btn-add" onClick={handleAddClick}>
-              {showForm ? '✕ Zavřít formulář' : '＋ Přidat produkt'}
+              {showForm ? '✕ Zavřít' : '＋ Přidat produkt'}
             </button>
-          </div>
+          </nav>
 
-          <main className="am-main">
+          <main className="main">
             {showForm && (
-              <AddForm onAdd={handleAddProduct} onClose={() => setShowForm(false)} />
+              <AddForm
+                onAdd={p => { setProducts(prev => [p, ...prev]); setShowForm(false); flash('✅ Produkt byl úspěšně přidán!'); }}
+                onClose={() => setShowForm(false)}
+              />
             )}
 
-            <h2 className="section-heading">🌬️ Aktuální nabídka</h2>
+            <h2 className="section-title">
+              Aktuální nabídka <span>{products.length}</span>
+            </h2>
 
-            <div className="products-grid">
-              {products.length === 0 ? (
-                <div className="empty-state">
-                  <div className="icon">💨</div>
-                  <p>Žádné produkty zatím. Přidejte první!</p>
-                </div>
-              ) : (
-                products.map(p => (
-                  <ProductCard key={p.id} product={p} onBuy={handleBuy} />
-                ))
-              )}
+            <div className="grid">
+              {products.length === 0
+                ? <div className="empty"><div className="icon">💨</div><p>Zatím žádné produkty. Přidejte první!</p></div>
+                : products.map(p => <Card key={p.id} p={p} onBuy={setBuyTarget} />)
+              }
             </div>
           </main>
 
-          <footer className="am-footer">© 2025 AirMart s.r.o. · Vzduch je náš byznys</footer>
+          <footer className="footer">© 2025 AirMart s.r.o. · Vzduch je náš byznys</footer>
 
-          <PasswordModal
-            open={showModal}
-            onSuccess={handlePasswordOk}
-            onClose={() => setShowModal(false)}
+          <PwModal
+            open={showPw}
+            onSuccess={() => { setShowPw(false); setShowForm(true); }}
+            onClose={() => setShowPw(false)}
           />
 
-          <Toast message={toast.message} visible={toast.visible} />
+          <BuyModal product={buyTarget} onClose={() => setBuyTarget(null)} />
+
+          <Toast msg={toast.msg} show={toast.show} />
         </>
       );
     }
 
-    ReactDOM.createRoot(document.getElementById('root')).render(<AirMartApp />);
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
   </script>
 </body>
 </html>
